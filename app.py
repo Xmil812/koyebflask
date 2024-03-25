@@ -45,9 +45,14 @@ def uptime():
         if len(upprox)<2:break
         try:
             result = requests.get(target,proxies=proxyp,timeout=3).text
-            if len(result)>20:continue
-            else:break
+            #print(result)
+            if len(result)>20:
+               # print
+                pass
+            else:
+                return result
         except Exception as e:
+            print(e)
             upprox.remove(proxyp)
     return {"error":upprox}
 
