@@ -1,4 +1,5 @@
 from flask import Flask,request
+from concurrent.futures import ThreadPoolExecutor
 import random
 app = Flask(__name__)
 
@@ -9,8 +10,7 @@ def hello_world():
 
 def proxy():
     valid = []
-    if not types:
-        types = 'socks5'
+    types = 'socks5'
     proxylist = requests.get('https://api.proxyscrape.com/?request=displayproxies&proxytype='+types+'&timeout=10000&country=all&ssl=all&anonymity=all').text.split('\r\n')
     with ThreadPoolExecutor(max_workers=int(len(proxylist))+2) as pool:
         for proxy in proxylist:
